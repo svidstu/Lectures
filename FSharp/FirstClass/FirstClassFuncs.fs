@@ -109,7 +109,6 @@ let getAdder baseVal =
 // when getAdder is actually invoked. That is a DYNAMIC value that is not known until
 // runtime, so the behavior of the resulting function won't be known until runtime. 
 
-
 // To use it:
 let addBy5 = getAdder 5
 addBy5 10 |> printfn "5 + 10 = %d"
@@ -122,10 +121,8 @@ addBy100 10 |> printfn "100 + 10 = %d"
 
 // This may be troubling... how does it POSSIBLY work?
 
-
-
-
-
+//adder function now "outlives" its scope and it now assigned to addby5 or addby100
+//"closure is the way of encapsulating ("capturing") data necessary to use for inner function"
 
 
 // The other way to dynamically create a function at runtime: the "fun" keyword.
@@ -133,6 +130,25 @@ addBy100 10 |> printfn "100 + 10 = %d"
 // I COULD write a new predicate "isMultOf3"... but I don't really need that function
 // to have a name. I really just need an anonymous function that does what I need
 // when I call sumList. That's what "fun" is for:
+
+//anonymous function (fun x -> x * x); fun x, where x is the return type; everything to the right of
+//-> is the function body
+
+//"I just want to use a function now and get rid of it on the fly without anyone else
+//being allowed to use it;" function only has lifetime of one line of code
+
 seq {1 .. 10}
 |> sumList (fun x -> x % 3 = 0) // a function of 1 parameter, returning what?
 |> printfn "Sum of multiples of 3 from 1 to 10 = %d"
+
+//Sum of all negative numbers in list
+
+seq {1 .. 10}
+|> sumList (fun x -> x < 0)
+|> printfn "Sum of negative numbers from 1 to 10 = %d" //simple as that
+
+//This has a specific type, though
+//int -> bool
+//(fun x -> x < 0)
+
+//Thus, (fun x -> x < 0) 100 is a valid statement that will return false

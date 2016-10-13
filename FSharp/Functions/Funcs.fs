@@ -42,24 +42,29 @@ let toCelcius tempF = (tempF - 32.0) * 5.0 / 9.0
 
 // Challenges:
 // Write a function that concatenates a string with itself.
-
+let concat (str:string) = str + str
 
 
 
 
 // Write a function that finds the harmonic mean of two floating-point numbers.
-
+let harmonicMean x y = 1.0 / (1.0/x + 1.0/y)
 
 
 
 
 // Write a function that repeats a given string N times, with commas separating each
 // copy of the string.
+let repeatString str n =
+    let mutable count = 1 
+    let mutable ret = str
+    while (count < n) do
+        ret <- ret + ", " + str
+        count <- count + 1
 
+    ret
 
-
-
-
+printfn "%s" (repeatString "hello" 5)
 
 [<EntryPoint>]
 let main argv = 

@@ -19,17 +19,20 @@ int main() {
 	// that pToFloat points to. Since there are indeed 4 bytes there, the program won't crash...
 	// it will just interpret those 4 bytes as if they were for a floating point number.
 
-	printf("%d interpreted as a float = %f\n", *pToInt, *pToFloat);
+	printf("%d interpreted as a float = %f\n", *pToInt, *pToFloat); //dereferencing
 
 
 	// To obtain dynamic memory, we use malloc, which requires knowing the # of bytes to allocate.
-	int *oneInt = (int*)malloc(sizeof(int));
+	//malloc means "memory allocate"
+
+	int *oneInt = (int*)malloc(sizeof(int)); //because int may be different sizes on different comps
 	// I now own this memory and can use it how I see fit.
-	*oneInt = 100;
-	*(float*)oneInt = 3.14159;
+	*oneInt = 100; //points to something on the heap; dereferenced assignment occuring here
+	*(float*)oneInt = 3.14159; //cast int pointer to float pointer and then dereference it
 
 	// Arrays are allocated this way, too.
-	int *arrayInt = (int*)malloc(10 * sizeof(int));
+	int *arrayInt = (int*)malloc(10 * sizeof(int)); //size 10 array
+	printf("size of *arrayint is: %d \n", sizeof(arrayInt));
 	arrayInt[0] = 100;
 	arrayInt[1] = 90;
 	// etc.
@@ -41,7 +44,8 @@ int main() {
 	char *someValues = (int*)malloc(sizeof(int) + sizeof(float));
 	// The compiler only knows this is a pointer to a character. Secretly it points to 8 bytes.
 	// I can manipulate those bytes however I want.
-	*(int*)someValues = 100; // Draw this out.
+	*(int*)someValues = 100; // Draw this out. //Convince compiler that this is an int pointer,
+	//then dereference it
 
 	// someValues points to a block of 8 bytes. If I tell the compiler it actually points to
 	// an int, then I can assign an int to the first 4 of those bytes.
@@ -49,6 +53,7 @@ int main() {
 	// What if I want to assign to another part of the block? Pointer arithmetic!
 	// "someValues + x" will address memory at "x" increments past wherever someValues starts,
 	// where one "increment" is the size of the thing someValues points to -- 1 byte in this case.
+	// Because it's a char pointer (1 byte!)
 
 	*(float*)(someValues + 4) = 3.14159f;
 
@@ -56,4 +61,5 @@ int main() {
 	printf("Address %p has int value %d; address %p has float value %f\n",
 		someValues, *(int*)someValues, someValues + 4, *(float*)(someValues + 4));
 
+	getchar();
 }

@@ -23,11 +23,14 @@ let list2 = "c" :: list1 // :: is called "cons" ; create a new list by placing a
 
 let list3 = list1 @ list2 // @ is "concat": concatenate/append two lists
 
+//Neal's in-class example
+let list4 = list2 @ ["c"] //if you want to add that "c" to the end of the list
+
 let printList li =
     // Lists do have .[] indexing like arrays, but lists are secretly LINKED LISTS...
-    // and what is the O(_) runtime complexity of indexing a linked list?
+    // and what is the O(n) runtime complexity of indexing a linked list?
 
-
+    //O(n) is considered unacceptable -Neal
 
     // For that reason, we don't typically index lists. We can iterate through them instead.
     for i in li do
